@@ -1,2 +1,2 @@
 require './status'
-run Sinatra::Application
+run XboxStatusApi.new
