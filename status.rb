@@ -56,8 +56,8 @@ helpers do
         services  = []
 
         service.parent.css('ul.platforms li.platform').each do |p|
-          platform = p.css('p').text
-          icon     = "http://support.xbox.com" + p.css('div.icon img').first['src']
+          platform  = p.css('p').text
+          icon      = "http://support.xbox.com" + p.css('div.icon img').first['src']
           platforms << {:name => platform, :icon => icon}
         end
 
@@ -67,14 +67,11 @@ helpers do
 
         affected = {:platforms => platforms, :services => services}
 
-        puts service.parent.css('p.heading.timestamp').text[0..-2]
-        last_updated_at = DateTime.strptime(service.parent.css('p.heading.timestamp').text[0..-2],
-          '%m/%d/%Y %k:%M:%S %p %Z')
+        timestamp = service.parent.css('p.heading.timestamp').text[0..-2]
+        last_updated_at = DateTime.strptime(timestamp, '%m/%d/%Y %k:%M:%S %p %Z')
         message = service.parent.css('div.details p').text
 
         details = {:last_updated_at => last_updated_at, :message => message}
-      when "active"
-
       end
 
       service = {
