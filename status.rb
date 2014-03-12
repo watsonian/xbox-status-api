@@ -25,7 +25,15 @@ end
 
 helpers do
   def update_status?
-    @cache.nil? || DateTime.now.new_offset(0) >= (@cache[:last_updated_at] + 60*5)
+    @cache.nil? || ttl_reached?
+  end
+
+  def ttl_reached?
+    DateTime.now.new_offset(0) >= (@cache[:last_updated_at] + ttl)
+  end
+
+  def ttl
+    60*5 # 5 minutes
   end
 
   def current_status
